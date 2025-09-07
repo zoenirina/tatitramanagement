@@ -1,9 +1,12 @@
 package com.example.backend_spring_boot.service;
 
+import com.example.backend_spring_boot.model.Owner;
 import com.example.backend_spring_boot.model.User;
 import com.example.backend_spring_boot.payload.*;
+import com.example.backend_spring_boot.payload.request.OwnerRequest;
 import com.example.backend_spring_boot.payload.response.ApiResponse;
 import com.example.backend_spring_boot.security.UserPrincipal;
+import org.springframework.http.ResponseEntity;
 
 public interface UserService {
 
@@ -27,4 +30,5 @@ public interface UserService {
 
 	UserProfile setOrUpdateInfo(UserPrincipal currentUser, User infoRequest);
 
+	ResponseEntity<Owner> updateOwnerDetail(Long userId, OwnerRequest ownerRequest, UserPrincipal currentUser);
 }

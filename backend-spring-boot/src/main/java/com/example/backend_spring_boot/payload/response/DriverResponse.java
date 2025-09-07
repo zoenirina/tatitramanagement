@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class DriverResponse {
 
     private Long id;
+    private String photo;
     private String firstName;
     private String lastName;
     private String phone;

@@ -2,17 +2,21 @@ package com.example.backend_spring_boot.controller;
 
 import com.example.backend_spring_boot.exception.AppException;
 import com.example.backend_spring_boot.exception.HttpStatusException;
+import com.example.backend_spring_boot.model.Owner;
 import com.example.backend_spring_boot.model.User;
 import com.example.backend_spring_boot.model.role.Role;
 import com.example.backend_spring_boot.model.role.RoleName;
 import com.example.backend_spring_boot.payload.request.LoginRequest;
+import com.example.backend_spring_boot.payload.request.OwnerRequest;
 import com.example.backend_spring_boot.payload.request.SignUpRequest;
 import com.example.backend_spring_boot.payload.response.ApiResponse;
 import com.example.backend_spring_boot.payload.response.JwtAuthenticationResponse;
+import com.example.backend_spring_boot.repo.OwnerRepository;
 import com.example.backend_spring_boot.repo.RoleRepository;
 import com.example.backend_spring_boot.repo.UserRepository;
 import com.example.backend_spring_boot.security.JwtTokenProvider;
 import com.example.backend_spring_boot.security.UserPrincipal;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +49,9 @@ public class AuthController {
     private UserRepository userRepository;
 
     @Autowired
+    private OwnerRepository ownerRepository;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @Autowired
@@ -53,33 +60,8 @@ public class AuthController {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
-//    @PostMapping("/signin")
-//    public ResponseEntity<JwtAuthenticationResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(), loginRequest.getPassword()));
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        String jwt = jwtTokenProvider.generateToken(authentication);
-//        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
-//    }
-
-//    @PostMapping("/signin")
-//    public ResponseEntity<JwtAuthenticationResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        loginRequest.getUsernameOrEmail(),
-//                        loginRequest.getPassword()
-//                )
-//        );
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // Important pour utiliser generateToken
-//        String jwt = jwtTokenProvider.generateToken(userDetails);
-//
-//        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
-//    }
+    @Autowired
+    private ModelMapper modelMapper;
 
     @PostMapping("/signin")
     public ResponseEntity<JwtAuthenticationResponse> authenticateUser(
@@ -105,10 +87,8 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
-
-
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody SignUpRequest signUpRequest, @RequestBody OwnerRequest ownerRequest) {
         if (Boolean.TRUE.equals(userRepository.existsByUsername(signUpRequest.getUsername()))) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Nom d'utilisateur déjà existante");
         }
@@ -116,6 +96,7 @@ public class AuthController {
         if (Boolean.TRUE.equals(userRepository.existsByEmail(signUpRequest.getEmail()))) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Email non valide");
         }
+        String photo = signUpRequest.getPhoto().toLowerCase();
 
         String username = signUpRequest.getUsername().toLowerCase();
 
@@ -123,7 +104,7 @@ public class AuthController {
 
         String password = passwordEncoder.encode(signUpRequest.getPassword());
 
-        User user = new User( username, email, password);
+        User user = new User( photo, username, email, password);
 
         List<Role> roles = new ArrayList<>();
 
@@ -139,11 +120,58 @@ public class AuthController {
 
         user.setRoles(roles);
 
-        User result = userRepository.save(user);
+        // Sauvegarde de l'utilisateur
+        User savedUser = userRepository.save(user);
+
+        // Création du Owner lié à l'utilisateur
+        ownerRequest.setUserId(savedUser.getId());
+        Owner owner = modelMapper.map(ownerRequest, Owner.class);
+        ownerRepository.save(owner);
+
 
         URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/{userId}")
-                .buildAndExpand(result.getId()).toUri();
+                .buildAndExpand(savedUser.getId()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(Boolean.TRUE, "User registered successfully"));
     }
+
+//    @PostMapping("/signup")
+//    public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+//        if (Boolean.TRUE.equals(userRepository.existsByUsername(signUpRequest.getUsername()))) {
+//            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Nom d'utilisateur déjà existante");
+//        }
+//
+//        if (Boolean.TRUE.equals(userRepository.existsByEmail(signUpRequest.getEmail()))) {
+//            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Email non valide");
+//        }
+//
+//        String username = signUpRequest.getUsername().toLowerCase();
+//
+//        String email = signUpRequest.getEmail().toLowerCase();
+//
+//        String password = passwordEncoder.encode(signUpRequest.getPassword());
+//
+//        User user = new User( username, email, password);
+//
+//        List<Role> roles = new ArrayList<>();
+//
+//        if (userRepository.count() == 0) {
+//            roles.add(roleRepository.findByName(RoleName.ROLE_USER)
+//                    .orElseThrow(() -> new AppException(USER_ROLE_NOT_SET)));
+//            roles.add(roleRepository.findByName(RoleName.ROLE_ADMIN)
+//                    .orElseThrow(() -> new AppException(USER_ROLE_NOT_SET)));
+//        } else {
+//            roles.add(roleRepository.findByName(RoleName.ROLE_USER)
+//                    .orElseThrow(() -> new AppException(USER_ROLE_NOT_SET)));
+//        }
+//
+//        user.setRoles(roles);
+//
+//        User result = userRepository.save(user);
+//
+//        URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/{userId}")
+//                .buildAndExpand(result.getId()).toUri();
+//
+//        return ResponseEntity.created(location).body(new ApiResponse(Boolean.TRUE, "User registered successfully"));
+//    }
 }

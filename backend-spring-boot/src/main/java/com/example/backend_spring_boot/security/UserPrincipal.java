@@ -2,6 +2,7 @@ package com.example.backend_spring_boot.security;
 
 import com.example.backend_spring_boot.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,11 +13,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-
+@Data
 public class UserPrincipal implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    private String photo;
 
     private String username;
 
@@ -56,13 +59,13 @@ public class UserPrincipal implements UserDetails {
         );
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
+//    public Long getId() {
+//        return this.id;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

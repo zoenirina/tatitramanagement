@@ -1,5 +1,6 @@
 package com.example.backend_spring_boot.payload.request;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -7,6 +8,9 @@ import java.math.BigDecimal;
 
 @Data
 public class DriverRequest {
+
+    @Nullable
+    private String photo;
 
     @NotBlank
     private String firstName;

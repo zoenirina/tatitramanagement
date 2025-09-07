@@ -21,7 +21,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    private Long id;
+
+    private String photo;
 
     @OneToOne
     @JoinColumn(name = "owner_id")
@@ -37,6 +38,13 @@ public class User {
     private String email;
 
     public User( String username, String email, String password) {
+
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User( String photo, String username, String email, String password) {
 
         this.username = username;
         this.email = email;

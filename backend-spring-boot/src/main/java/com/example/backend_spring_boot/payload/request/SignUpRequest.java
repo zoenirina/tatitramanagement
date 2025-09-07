@@ -1,5 +1,7 @@
 package com.example.backend_spring_boot.payload.request;
 
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 import jakarta.validation.constraints.Email;
@@ -8,13 +10,11 @@ import jakarta.validation.constraints.Size;
 
 @Data
 public class SignUpRequest {
-//	@NotBlank
-//	@Size(min = 4, max = 40)
-//	private String firstName;
-//
-//	@NotBlank
-//	@Size(min = 4, max = 40)
-//	private String lastName;
+	@Pattern(
+			regexp = ".*\\.(jpg|jpeg|png|gif)$",
+			message = "Le nom de fichier doit se terminer par .jpg, .jpeg, .png ou .gif"
+	)
+	private String photo;
 
 	@NotBlank
 	@Size(min = 3, max = 15)
