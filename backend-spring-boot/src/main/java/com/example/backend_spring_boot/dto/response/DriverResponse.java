@@ -1,5 +1,4 @@
-package com.example.backend_spring_boot.payload.response;
-import com.example.backend_spring_boot.model.Driver;
+package com.example.backend_spring_boot.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

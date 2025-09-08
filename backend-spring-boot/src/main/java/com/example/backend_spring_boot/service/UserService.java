@@ -2,9 +2,11 @@ package com.example.backend_spring_boot.service;
 
 import com.example.backend_spring_boot.model.Owner;
 import com.example.backend_spring_boot.model.User;
-import com.example.backend_spring_boot.payload.*;
-import com.example.backend_spring_boot.payload.request.OwnerRequest;
-import com.example.backend_spring_boot.payload.response.ApiResponse;
+import com.example.backend_spring_boot.dto.UserIdentityAvailability;
+import com.example.backend_spring_boot.dto.UserProfile;
+import com.example.backend_spring_boot.dto.UserSummary;
+import com.example.backend_spring_boot.dto.request.OwnerRequest;
+import com.example.backend_spring_boot.dto.response.ApiResponse;
 import com.example.backend_spring_boot.security.UserPrincipal;
 import org.springframework.http.ResponseEntity;
 

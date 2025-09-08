@@ -1,10 +1,10 @@
 package com.example.backend_spring_boot.service;
 
 import com.example.backend_spring_boot.model.Driver;
-import com.example.backend_spring_boot.payload.request.DriverRequest;
-import com.example.backend_spring_boot.payload.response.ApiResponse;
-import com.example.backend_spring_boot.payload.response.DriverResponse;
-import com.example.backend_spring_boot.payload.response.PagedResponse;
+import com.example.backend_spring_boot.dto.request.DriverRequest;
+import com.example.backend_spring_boot.dto.response.ApiResponse;
+import com.example.backend_spring_boot.dto.response.DriverResponse;
+import com.example.backend_spring_boot.dto.response.PagedResponse;
 import com.example.backend_spring_boot.security.UserPrincipal;
 import org.springframework.http.ResponseEntity;
 

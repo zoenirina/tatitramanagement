@@ -1,19 +1,17 @@
 package com.example.backend_spring_boot.controller;
 
+import com.example.backend_spring_boot.dto.UserIdentityAvailability;
+import com.example.backend_spring_boot.dto.UserProfile;
+import com.example.backend_spring_boot.dto.UserSummary;
+import com.example.backend_spring_boot.dto.request.OwnerRequest;
+import com.example.backend_spring_boot.dto.response.ApiResponse;
 import com.example.backend_spring_boot.model.Owner;
 import com.example.backend_spring_boot.model.User;
-import com.example.backend_spring_boot.payload.UserIdentityAvailability;
-import com.example.backend_spring_boot.payload.UserProfile;
-import com.example.backend_spring_boot.payload.UserSummary;
-import com.example.backend_spring_boot.payload.request.DriverRequest;
-import com.example.backend_spring_boot.payload.request.OwnerRequest;
-import com.example.backend_spring_boot.payload.response.ApiResponse;
 import com.example.backend_spring_boot.security.CurrentUser;
 import com.example.backend_spring_boot.security.UserPrincipal;
 import com.example.backend_spring_boot.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

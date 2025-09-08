@@ -3,7 +3,6 @@ package com.example.backend_spring_boot.model;
 import com.example.backend_spring_boot.model.transaction.Transaction;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

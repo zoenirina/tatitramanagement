@@ -1,13 +1,10 @@
 package com.example.backend_spring_boot.model.transaction;
 
-import com.example.backend_spring_boot.model.Driver;
-import com.example.backend_spring_boot.model.Vehicle;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @Entity

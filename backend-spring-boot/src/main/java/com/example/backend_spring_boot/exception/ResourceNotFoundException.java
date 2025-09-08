@@ -1,7 +1,7 @@
 package com.example.backend_spring_boot.exception;
 
 
-import com.example.backend_spring_boot.payload.response.ApiResponse;
+import com.example.backend_spring_boot.dto.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

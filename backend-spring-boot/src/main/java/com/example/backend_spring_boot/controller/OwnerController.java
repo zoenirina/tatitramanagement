@@ -1,17 +1,6 @@
 package com.example.backend_spring_boot.controller;
 
 
-import com.example.backend_spring_boot.model.Owner;
-import com.example.backend_spring_boot.security.CurrentUser;
-import com.example.backend_spring_boot.security.UserPrincipal;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

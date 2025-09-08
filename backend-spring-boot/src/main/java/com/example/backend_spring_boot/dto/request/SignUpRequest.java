@@ -1,6 +1,5 @@
-package com.example.backend_spring_boot.payload.request;
+package com.example.backend_spring_boot.dto.request;
 
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 

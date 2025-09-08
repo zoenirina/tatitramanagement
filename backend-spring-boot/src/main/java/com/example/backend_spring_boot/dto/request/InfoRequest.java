@@ -1,4 +1,4 @@
-package com.example.backend_spring_boot.payload.request;
+package com.example.backend_spring_boot.dto.request;
 
 
 import jakarta.validation.constraints.NotBlank;

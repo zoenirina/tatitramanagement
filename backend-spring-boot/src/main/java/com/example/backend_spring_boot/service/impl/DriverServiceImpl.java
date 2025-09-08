@@ -1,14 +1,14 @@
 package com.example.backend_spring_boot.service.impl;
 
-import com.example.backend_spring_boot.exception.ResourceNotFoundException;
 import com.example.backend_spring_boot.model.Driver;
-import com.example.backend_spring_boot.payload.request.DriverRequest;
-import com.example.backend_spring_boot.payload.response.ApiResponse;
-import com.example.backend_spring_boot.payload.response.DriverResponse;
-import com.example.backend_spring_boot.payload.response.PagedResponse;
+import com.example.backend_spring_boot.service.DriverService;
+import com.example.backend_spring_boot.exception.ResourceNotFoundException;
+import com.example.backend_spring_boot.dto.request.DriverRequest;
+import com.example.backend_spring_boot.dto.response.ApiResponse;
+import com.example.backend_spring_boot.dto.response.DriverResponse;
+import com.example.backend_spring_boot.dto.response.PagedResponse;
 import com.example.backend_spring_boot.repo.DriverRepository;
 import com.example.backend_spring_boot.security.UserPrincipal;
-import com.example.backend_spring_boot.service.DriverService;
 import com.example.backend_spring_boot.utils.AppUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import static com.example.backend_spring_boot.utils.AppConstants.*;
 

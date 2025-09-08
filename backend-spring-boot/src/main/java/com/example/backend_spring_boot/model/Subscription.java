@@ -1,6 +1,5 @@
 package com.example.backend_spring_boot.model;
 
-import com.example.backend_spring_boot.model.transaction.Transaction;
 import jakarta.persistence.*;
 import lombok.Data;
 

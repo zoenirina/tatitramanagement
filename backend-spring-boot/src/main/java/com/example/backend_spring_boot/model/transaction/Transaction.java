@@ -1,6 +1,9 @@
 package com.example.backend_spring_boot.model.transaction;
 
-import com.example.backend_spring_boot.model.*;
+import com.example.backend_spring_boot.model.Driver;
+import com.example.backend_spring_boot.model.Owner;
+import com.example.backend_spring_boot.model.Rental;
+import com.example.backend_spring_boot.model.Vehicle;
 import jakarta.persistence.*;
 import lombok.Data;
 

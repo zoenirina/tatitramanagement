@@ -1,4 +1,4 @@
-package com.example.backend_spring_boot.payload;
+package com.example.backend_spring_boot.dto;
 
 //import com.sopromadze.blogapi.model.user.Address;
 //import com.sopromadze.blogapi.model.user.Company;
